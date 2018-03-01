@@ -1,10 +1,29 @@
 <?php
     require_once 'core/init.php';
 
-    /*$db = DB::getInstance();
+    //$db = DB::getInstance()->query('select * from users where username = ?', array('perozdero'));
+    //$db = DB::getInstance()->action('SELECT *', 'users', array('username', 'LIKE', '%pero%'));
+    $db = DB::getInstance()->get('*', 'users');
+    //$db = DB::getInstance()->find(2, 'users');
+    //$db = DB::getInstance()->delete('users', array('id', '=', 1));
+
+    /*$db = DB::getInstance()->insert('users', [
+        'username' => 'mirkozlikovski',
+        'password' => 'qwe123',
+        'salt' => 'sdgds',
+        'name' => 'Mirko'
+    ]
+    );*/
+    $db = DB::getInstance()->update('users', 1,
+        [
+            'username' => 'newusername',
+            'name' => 'newname'
+        ]
+    );
+
     echo '<pre>';
-    var_dump(DB::getInstance());
-    die();*/
+    var_dump($db);
+    die();
 
     Helper::getHeader('Algebra Auth', 'main-header');
 ?>
@@ -16,9 +35,9 @@
                 <div class="container">
                     <h1>Algebra auth</h1>
                     <p>
-                        <input type="text" name="name" id="name" placeholder=" Ime"></input>
+                        <input type="text" name="name" id="name" placeholder=" Name"></input>
                         <br />
-                        <input type="text" name="pwd" id="pwd" placeholder=" Zaporče"></input>
+                        <input type="text" name="pwd" id="pwd" placeholder=" Password"></input>
                     </p>
                     <p>
                         <a class="btn btn-primary btn-lg" href="login.php" role=button>Sign in</a>
