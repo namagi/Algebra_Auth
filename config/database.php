@@ -11,5 +11,5 @@ return [
         'charset' => 'utf8',
     ],
     'sqlite' => [],
-    'pgsql' => [],
+    'pgsql' => []
 ];
