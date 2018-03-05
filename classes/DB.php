@@ -79,10 +79,6 @@ class DB
             $value = $where[2];
 
             if (in_array($operator, $operators)) {
-                // "LIKE" and "NOT LIKE" are a special case because of wildcard ( % )
-                if (strstr($operator, "LIKE")) {
-                    $value = '%' . $value . '%';
-                }
                 $sql = "{$action} FROM {$table} WHERE {$field} {$operator} ?";
 
                 if (!$this->query($sql, array($value))->getError()) {
