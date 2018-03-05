@@ -19,12 +19,16 @@
         'name' => 'Mirko'
     ]
     );*/
-    $db = DB::getInstance()->update('users', 1,
+    /*$db = DB::getInstance()->update('users', 1,
         [
             'username' => 'newusername',
             'name' => 'newname'
         ]
-    );
+    );*/
+
+    $db = DB::getInstance()->get('*', 'users', array('username', '<>', 'perozdero'));
+
+    //$db = DB::getInstance()->get('*', 'sessions', array('hash', 'IS NOT', NULL));
 
     echo '<pre>';
     var_dump($db);

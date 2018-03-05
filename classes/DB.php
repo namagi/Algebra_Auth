@@ -72,25 +72,29 @@ class DB
     private function action($action, $table, $where=array()) {
         if (count($where) === 3) {
             $operators = array(
-                '=', '<', '>', '<=', '>=', 'LIKE');
+                '=', '<', '>', '<=', '>=', 'LIKE', 'NOT LIKE', 'IS', 'NOT', '!=', 'IS NOT', '<>');
 
             $field = $where[0];
-            $operator = $where[1];
+            $operator = strtoupper($where[1]);
             $value = $where[2];
 
             if (in_array($operator, $operators)) {
+                // "LIKE" and "NOT LIKE" are a special case because of wildcard ( % )
+                if (strstr($operator, "LIKE")) {
+                    $value = '%' . $value . '%';
+                }
                 $sql = "{$action} FROM {$table} WHERE {$field} {$operator} ?";
 
                 if (!$this->query($sql, array($value))->getError()) {
                     return $this;
                 }
             }
-        } else {
-            $sql = "{$action} FROM {$table}";
-            if (!$this->query($sql)->getError()) {
-                return $this;
+            } else {
+                $sql = "{$action} FROM {$table}";
+                if (!$this->query($sql)->getError()) {
+                    return $this;
+                }
             }
-        }
 
         return false;
     }
