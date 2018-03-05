@@ -72,7 +72,8 @@ class DB
     private function action($action, $table, $where=array()) {
         if (count($where) === 3) {
             $operators = array(
-                '=', '<', '>', '<=', '>=', 'LIKE', 'NOT LIKE', 'IS', 'NOT', '!=', 'IS NOT', '<>');
+                '=', '<', '>', '<=', '>=', 'LIKE', 'NOT LIKE', 'IS', 'NOT', '!=', 'IS NOT', '<>',
+                'REGEXP', 'NOT REGEXP', 'RLIKE', 'NOT RLIKE');
 
             $field = $where[0];
             $operator = strtoupper($where[1]);

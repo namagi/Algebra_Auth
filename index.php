@@ -26,7 +26,7 @@
         ]
     );*/
 
-    $db = DB::getInstance()->get('*', 'users', array('username', '<>', 'perozdero'));
+    $db = DB::getInstance()->get('*', 'users', array('name', 'RLIKE', "o$"));
 
     //$db = DB::getInstance()->get('*', 'sessions', array('hash', 'IS NOT', NULL));
 
