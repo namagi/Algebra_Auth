@@ -1,12 +1,44 @@
 <?php
 require_once 'core/init.php';
 
+$user = new User();
+if ($user->check()) {
+    Redirect::to('dashboard');
+}
 Helper::getHeader('Algebra Auth | Sign in', 'main-header');
+
+$validate = new Valiadation();
 
 if (Input::exists())
 {
+    if (Token::check(Input::get('token')))
+    {
+       $validation = $validate->check(array(
+           'username' => array(
+               'required' => true,
+           ),
+           'password' => array(
+               'required' => true,
+           ),
+       ));
+
+       if ($validation->getPassed()) {
+               $login = $user->login(
+                   Input::get('username'),
+                   Input::get('password')
+               );
+
+               if ($login) {
+                   Redirect::to('dashboard');
+               }
+
+           Session::flash('danger', 'Login failed.');
+           Redirect::to('login');
+       }
+    }
 }
 
+require_once 'notifications.php';
 ?>
 
 <div class="row">
@@ -16,14 +48,17 @@ if (Input::exists())
                 <h3 class="panel-title">Sign in</h3>
             </div>
             <div class="panel-body">
-                <form method="POST">
-                    <div class="form-group">
-                        <label for="username">Name</label>
-                        <input type="text" class="form-control" id="username" name="username" placeholder="Name" autofocus="autofocus">
+                <form method="post">
+                    <input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
+                    <div class="form-group <?php echo ($validate->hasError('username')) ? 'has-error' : '' ?>" >
+                        <label for="username">Username *</label>
+                        <input type="text" class="form-control" id="username" name="username" placeholder="User name" autofocus="autofocus">
+                        <?php echo ($validate->hasError('username')) ? '<p class="text-danger">' . $validate->hasError('username') . '</p>' : '' ?>
                     </div>
-                    <div class="form-group">
-                        <label for="password">Password</label>
+                    <div class="form-group <?php echo ($validate->hasError('password')) ? 'has-error' : '' ?>" >
+                        <label for="password">Password *</label>
                         <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+                        <?php echo ($validate->hasError('password')) ? '<p class="text-danger">' . $validate->hasError('password') . '</p>' : '' ?>
                     </div>
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary">Sign in</button>

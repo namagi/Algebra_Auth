@@ -9,24 +9,28 @@ class Session
     {
         return $_SESSION;
     }
-    
+
     public static function exists($key)
     {
         return (isset($_SESSION[$key])) ? true : false;
     }
-    
+
     public static function put($key, $value)
     {
         return $_SESSION[$key] = $value;
     }
-    
+
     public static function get($key)
     {
         return $_SESSION[$key];
     }
-    
-    public function delete($key)
+
+    public static function delete($key)
     {
         unset($_SESSION[$key]);
+    }
+
+    public static function flash($key, $msg = '') {
+        self::put($key, $msg);
     }
 }

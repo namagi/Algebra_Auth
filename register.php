@@ -2,6 +2,9 @@
 require_once 'core/init.php';
 
 $user = new User();
+if ($user->check()) {
+    Redirect::to('dashboard');
+}
 
 Helper::getHeader('Algebra Auth | Create account', 'main-header');
 
@@ -44,15 +47,18 @@ if (Input::exists()) {
                    'name' => Input::get('name')
                ));
 
-           } catch (Exception $ex) {
-               // TODO: handle properly
-               die($ex);
+           } catch (Exception $e) {
+               Session::flash('danger', $e->getMessage());
+               Redirect::to('register');
            }
 
-           header('Location:login.php');
+           Session::flash('success', 'You are registered successfuly');
+           Redirect::to('login');
        }
     }
 }
+
+require_once 'notifications.php';
 
 ?>
 
@@ -63,7 +69,7 @@ if (Input::exists()) {
                 <h3 class="panel-title">Create account</h3>
             </div>
             <div class="panel-body">
-                <form method="POST">
+                <form method="post">
                     <input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
                     <div class="form-group <?php echo ($validate->hasError('name')) ? 'has-error' : '' ?>" >
                         <label for="name">Name *</label>

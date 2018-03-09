@@ -173,4 +173,12 @@ class DB
     {
         return $this->count;
     }
+
+    /**
+     *
+     * @return first key from results
+     */
+    public function first() {
+        return $this->results[0];
+    }
 }
