@@ -31,24 +31,24 @@ if (Input::exists()) {
                'matches' => 'password',
            ),
        ));
-       
+
        if ($validation->getPassed()) {
            $salt = Hash::salt(32);
            $password = Hash::make(Input::get('password'), $salt);
-           
+
            try {
                $user->create(array(
                    'username' => Input::get('username'),
                    'password' => $password,
                    'salt' => $salt,
                    'name' => Input::get('name')
-                   
                ));
-               
+
            } catch (Exception $ex) {
-               
+               // TODO: handle properly
+               die($ex);
            }
-           
+
            header('Location:login.php');
        }
     }
