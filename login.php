@@ -27,7 +27,6 @@ if (Input::exists())
                    Input::get('username'),
                    Input::get('password')
                );
-
                if ($login) {
                    Redirect::to('dashboard');
                }
@@ -35,6 +34,7 @@ if (Input::exists())
            Session::flash('danger', 'Login failed.');
            Redirect::to('login');
        }
+
     }
 }
 

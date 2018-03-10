@@ -43,7 +43,6 @@ class User
 
     public function login($username = null, $password = null) {
         $user = $this->find($username);
-        var_dump($user);
         if ($user) {
             if ($this->getData()->password === Hash::make($password, $this->getData()->salt)) {
                 Session::put($this->sessionName, $this->getData()->id);

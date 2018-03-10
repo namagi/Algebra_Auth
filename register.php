@@ -52,7 +52,7 @@ if (Input::exists()) {
                Redirect::to('register');
            }
 
-           Session::flash('success', 'You are registered successfuly');
+           Session::flash('success', 'You are registered successfully');
            Redirect::to('login');
        }
     }
