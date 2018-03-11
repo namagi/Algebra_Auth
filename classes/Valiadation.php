@@ -15,7 +15,7 @@ class Valiadation
             foreach ($rules as $rule => $rule_value) {
                 $value = trim(Input::get($item));
 
-                if (empty($value) && ($rule === 'required')) {
+                if (empty($value) && ($rule === 'required' && $rule_value === true)) {
                     $this->addError($item, "Field {$item} is required.");
                 } else if (!empty ($value)) {
                     switch ($rule) {
