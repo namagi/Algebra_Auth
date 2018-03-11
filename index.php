@@ -6,7 +6,8 @@
     var_dump(DB::getInstance());
     die();*/
 
-    //$db = DB::getInstance()->query('select * from users where username = ?', array('perozdero'));
+    //$db = DB::getInstance()->query('select * from users where username = ?', array('aa'));
+    //var_dump($db);
     //$db = DB::getInstance()->action('SELECT *', 'users', array('username', 'LIKE', '%pero%'));
     //$db = DB::getInstance()->get('*', 'users');
     //$db = DB::getInstance()->find(2, 'users');

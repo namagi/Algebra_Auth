@@ -36,14 +36,15 @@ if (Input::exists()) {
        ));
 
        if ($validation->getPassed()) {
-           $salt = Hash::salt(32);
-           $password = Hash::make(Input::get('password'), $salt);
+           /*$salt = Hash::salt(32);
+           $password = Hash::make(Input::get('password'), $salt);*/
+           $password = password_hash(Input::get('password'), PASSWORD_DEFAULT);
 
            try {
                $user->create(array(
                    'username' => Input::get('username'),
                    'password' => $password,
-                   'salt' => $salt,
+                   //'salt' => $salt,
                    'name' => Input::get('name')
                ));
 

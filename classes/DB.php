@@ -174,9 +174,8 @@ class DB
         return $this->count;
     }
 
-    /**
-     *
-     * @return first key from results
+    /** Returns first key from results
+     * @return array[0] => first element in the results array
      */
     public function first() {
         return $this->results[0];

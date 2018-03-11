@@ -28,6 +28,7 @@ if (Input::exists())
                    Input::get('password')
                );
                if ($login) {
+                   Session::put('username', $user->getData()->username);
                    Redirect::to('dashboard');
                }
 

@@ -44,7 +44,8 @@ class User
     public function login($username = null, $password = null) {
         $user = $this->find($username);
         if ($user) {
-            if ($this->getData()->password === Hash::make($password, $this->getData()->salt)) {
+            //if ($this->getData()->password === Hash::make($password, $this->getData()->salt)) {
+            if (password_verify($password, $this->getData()->password)) {
                 Session::put($this->sessionName, $this->getData()->id);
                 return true;
             }
